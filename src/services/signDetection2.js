@@ -46,11 +46,12 @@ const SignDetection = (props)  => {
 
       
       const image = canvas.toDataURL('image/jpeg');
+      console.log (JSON.stringify({ image }))
 
       try {
-        // console.log(image);
+        // console.log("img: " , image);
 
-        const response = await fetch('http://localhost:5000/api/detect-gesture', {
+        const response = await fetch('https://hand-recognition-service.onrender.com/api/detect-gesture/', {
           method: 'POST',
           body: JSON.stringify({ image }),
           headers: { 'Content-Type': 'application/json' },
@@ -82,7 +83,7 @@ const SignDetection = (props)  => {
   }, []);
 
    return (
-    <div style={{ position: 'relative' ,border: '2px solid black'}}>
+    <div style={{ position: 'relative' ,border: '2px solid black' , maxWidth: "fit-content", margin:'0 auto'}}>
       <video ref={videoRef} autoPlay />
       <div
         style={{
@@ -94,7 +95,7 @@ const SignDetection = (props)  => {
           border: '4px solid red',
         }}
       ></div>
-      <h4 className='text-center'>Detected gesture: <span className='text-danger'>{gesture}</span> </h4>
+      {/* <p className='text-center'>Detected gesture: <span className='text-danger'>{gesture}</span> </p> */}
       
     </div>
   );

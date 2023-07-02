@@ -13,8 +13,10 @@ import Home from './client_comps/home';
 import Learn from './learn/learn';
 import LogIn from './users/logIn';
 import Register from './users/register';
-import Game from './client_comps/game';
+import Game from './play/game';
+import GameOver from './play/gameOver';
 import { AuthProvider } from './context';
+import Practice from './practice/practice';
 
 // מפעיל את האפשרות באקספרס לעבוד עם קבצים
 
@@ -38,8 +40,10 @@ function App() {
 
       <Routes>
       <Route path="/learn/" element={< Learn/>} />
-      <Route path="/practice/" />
+      <Route path="/practice/" element={< Practice/>}/>
       <Route path='/play/' element={<Game />} /> 
+      <Route path='/play/gameOver' element={<GameOver />} /> 
+      
       </Routes>
 
       <Routes>

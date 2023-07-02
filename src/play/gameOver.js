@@ -1,11 +1,13 @@
 import React from 'react'
 import Game from './game'
-import { Link } from 'react-router-dom';
+import { useNavigate ,Link, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { API_URL, doApiGet, doApiMethod } from '../services/apiService';
 
 
 function GameOver(props) {
+
+  const navigate = useNavigate ();
 
   const id = localStorage.getItem("userId")
   const bodyData = {
@@ -14,6 +16,7 @@ function GameOver(props) {
   };
 
   useEffect(() => {
+    console.log("enter game over");
     localStorage.setItem("score",props.score);
     checkIfScoreExist();
   }, []);
@@ -40,12 +43,21 @@ const checkIfScoreExist = async() => {
   }
 }
 
+const handlePlayAgain = () => {
+  navigate('/play');
+}
   return (
     <div>
     <p>Game Over!</p>
     <p>Final Score: {props.score}</p>
-    <button onClick={() =>{return <Game />}}>Play Again</button>
-    <button onClick={()=>{<Link to="/"></Link>}}>Go to Homepage</button>
+    
+    <Link to="/">
+       <i className="fa fa-home fa-3x" aria-hidden="true"></i>
+    </Link>
+    <Link to="/play">
+      <button>Play Again</button>
+    </Link>
+    
   </div>
   )
 }

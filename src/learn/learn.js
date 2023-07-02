@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-export default function Learn() {
+export default function Learn(props) {
   const [selectedLetter, setSelectedLetter] = useState('A');
 
   const handleClick = (letter) => {
     setSelectedLetter(letter);
+    props.onChooseLetter(letter);
   };
 
   const getVideoSource = (letter) => {

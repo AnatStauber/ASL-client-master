@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import GameOver from './gameOver';
 import SignDetection from '../services/signDetection2';
-import Modal from 'react-modal';
-import './modal.css';
 import ShowTimer from '../services/showTimer';
+import OpenModal from './modal';
+import { Link, Navigate  } from 'react-router-dom';
 
 const generateRandomLetters = () => {
     const alphabet = 'ABCDEFGHIKLMNOPQRSTUVWXY';
@@ -88,10 +88,6 @@ const generateRandomLetters = () => {
   const gameOver =  () => {
     console.log('Game Over');
     
-    return(
-    <GameOver score={score} />
-    )
-
   }
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -103,38 +99,53 @@ const generateRandomLetters = () => {
 
   return (
     <div className='container d-flex justify-content-center'>
-        {currentQuestionIndex<10 && (
-            <div>            
-              <h3 className='text-center'>Show us your signing skills!</h3>
-            <h1 className=' text-center text-info mt-4'>Show us the letter:<strong>{currentQuestion}</strong></h1>
+        {currentQuestionIndex<10 ? 
+        (
+          <div>            
+            <h2 className='text-center display-2 fw-bold'>Show us your signing skills!</h2>
+            <h1 className=' text-center text-info mt-4'>Show us the letter: <span className='fw-bold bg-info rounded-4 text-light px-3  py-2'>{currentQuestion}</span></h1>
+            <h4 className='text-center fw-bold mt-2 p-3 ' style={{cursor : "pointer"}} onClick={() => {
+              setRemainingTime(30);
+              setUserAnswer('');
+              setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+              setTimerKey((prevKey) => prevKey + 1);
+            }}>Don't know the answer? Skip to the next letter &rarr; </h4>
+
             <div className='d-flex justify-content-center mt-5'> 
             <ShowTimer key={timerKey} />
             </div>
             <div className='mt-4'>
             <SignDetection setGesture={setUserAnswer} />
-            <h4 className='text-center fw-bold mt-2' style={{cursor : "pointer"}} onClick={() => {
-              setRemainingTime(30);
-              setUserAnswer('');
-              setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-              setTimerKey((prevKey) => prevKey + 1);
-            }}>Next letter</h4>
+            <p className='text-center'>Detected gesture: <span className='text-danger'>{userAnswer}</span> </p>
             </div>
             <h3 className='mt-3 text-center'>Score: {score}</h3>
-          </div>)}
+          </div>
+          ) 
+          : 
+          (
+            <Navigate to={{ pathname: '/play/gameOver', score: { score } }}> </Navigate>
+          )}
+
             {showModal && (
-              <div className='container h-50 d-flex justifu-content-center'>
-            <Modal
-                isOpen={showModal}
-                onRequestClose={() => setShowModal(false)}
-                className="Modal"
-                overlayClassName="Overlay"
-            >
+               
+               <OpenModal 
+               showModal={true}
+               setShowModal={setShowModal}
+               message1={"correct!"}
+               message2={"+10 points"}/>
+            //   <div className='container h-50 d-flex justify-content-center'>
+            // <Modal
+            //     isOpen={showModal}
+            //     onRequestClose={() => setShowModal(false)}
+            //     className="Modal"
+            //     overlayClassName="Overlay"
+            // >
               
-                <h2 className='text-center mt-5'>Correct!</h2> 
-                <h2 className='text-center text-success fw-bold'> +10 points</h2>
+            //     <h2 className='text-center mt-5'>Correct!</h2> 
+            //     <h2 className='text-center text-success fw-bold'> +10 points</h2>
               
-            </Modal>
-            </div>
+            // </Modal>
+            // </div>
             )}
       </div>
   );
