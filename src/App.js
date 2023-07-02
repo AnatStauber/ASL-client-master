@@ -12,12 +12,14 @@ import ClientNav from './client_comps/clientNav.js';
 import Home from './client_comps/home';
 import Learn from './learn/learn';
 import LogIn from './users/logIn';
-import Register from './users/register';
+import SignUp from './users/register';
 import Game from './play/game';
 import GameOver from './play/gameOver';
 import { AuthProvider } from './context';
 import Practice from './practice/practice';
-
+import Menu from './client_comps/mainMenu';
+import UserDetails from './users/userProfile';
+import HighScores from "./general_comps/highScores"
 // מפעיל את האפשרות באקספרס לעבוד עם קבצים
 
 
@@ -33,6 +35,7 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/" element={<Home />}/>
+        <Route path="/menu" element={<Menu />}/>
 
         {/* ADMIN ROUTES */}
         {adminRoutes()}
@@ -43,13 +46,16 @@ function App() {
       <Route path="/practice/" element={< Practice/>}/>
       <Route path='/play/' element={<Game />} /> 
       <Route path='/play/gameOver' element={<GameOver />} /> 
+      <Route path='/highScores' element={<HighScores />} /> 
+
       
       </Routes>
 
       <Routes>
       <Route path="/user/login" element={< LogIn/>} />
-      <Route path="/user/register" element={< Register/>} /> 
-     <Route path="/*" element={<h2>Page 404</h2>}/>
+      <Route path="/user/register" element={< SignUp/>} /> 
+      <Route path="/user/userProfile" element={< UserDetails/>} /> 
+     {/* <Route path="/*" element={<h2>Page 404</h2>}/> */}
 
       </Routes>
       <ToastContainer position="top-left" theme="colored" />

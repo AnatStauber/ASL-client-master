@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { API_URL, doApiMethod } from '../services/apiService';
 import { AuthContext } from '../context';
 
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +32,7 @@ export default function Login() {
   };
 
   return (
-    <div className="container mt-4" style={{ maxWidth: '600px' }}>
+    <div className="container mt-4 " style={{ maxWidth: '600px' }}>
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <div className="mb-3">

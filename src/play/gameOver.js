@@ -3,6 +3,7 @@ import Game from './game'
 import { useNavigate ,Link, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { API_URL, doApiGet, doApiMethod } from '../services/apiService';
+import "../main.css"
 
 
 function GameOver(props) {

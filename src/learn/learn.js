@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "../main.css"
 
 export default function Learn(props) {
   const [selectedLetter, setSelectedLetter] = useState('A');

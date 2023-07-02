@@ -42,8 +42,9 @@ export default function EditUser() {
   const doApiForm = async (bodyFormData) => {
     let url = API_URL + "/users/" + params["id"];
     try {
-
+      console.log(url)
       let resp = await doApiMethod(url, "PUT", bodyFormData)
+      console.log(resp)
       if (resp.data) {
         alert("user update succefuly");
         nav("/admin/users")
@@ -59,14 +60,31 @@ export default function EditUser() {
   }
 
 
-  return (
-  <div>
-    <h2> active:  {info.active ? 'true' : 'false'}</h2>
-    <h2> {info.email} </h2>
-    <h2> date: {info.date_created}</h2>
-    <h2> name: {info.fullName.firstName}</h2>
- </div>  
- 
+return (
+
+  <div className='container'>
+    <CheckAdminComp />
+    <h2>Edit category</h2>
+    {info.email ? <form onSubmit={handleSubmit(onSubForm)} className='col-md-6 p-3 shadow'>
+      <label>First name:</label>
+      <input defaultValue={info.fullName.firstName} {...register("name", { required: true, minLength: 2 })} type="text" className='form-control' />
+      {errors.name && <div className='text-danger'>Enter valid name (min 2 chars) </div>}
+      <label>Last name:</label>
+      <input defaultValue={info.fullName.lastName} {...register("lastName", { required: true, minLength: 2 })} type="text" className='form-control' />
+      {errors.lastName && <div className='text-danger'>Enter valid name (min 2 chars) </div>}
+      <label>Email:</label>
+      <input defaultValue={info.email} {...register("email", { required: true, minLength: 2 })} type="text" className='form-control' />
+      {errors.email && <div className='text-danger'>Enter valid name (min 2 chars) </div>}
+      <label>Password:</label>
+      <input defaultValue={info.password} {...register("password", { required: true, minLength: 2 })} type="text" className='form-control' />
+      {errors.password && <div className='text-danger'>Enter valid name (min 2 chars) </div>}
+  
+      <div className='mt-3'>
+        <button className='btn btn-success me-5'>Update</button>
+        <Link className='btn btn-danger' to="/admin/users">Back</Link>
+      </div>
+    </form> : <h2>Loading...</h2> }
+  </div>
 )
   
 

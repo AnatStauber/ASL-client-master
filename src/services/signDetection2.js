@@ -49,8 +49,7 @@ const SignDetection = (props)  => {
       console.log (JSON.stringify({ image }))
 
       try {
-        // console.log("img: " , image);
-
+      
         const response = await fetch('https://hand-recognition-service.onrender.com/api/detect-gesture/', {
           method: 'POST',
           body: JSON.stringify({ image }),

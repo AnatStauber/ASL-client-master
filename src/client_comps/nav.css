@@ -1,0 +1,19 @@
+.icon-link{
+    color: white;
+}
+
+.icon-link:hover{
+    color: rgb(250 204 21);
+}
+
+.userIcon{
+    color: rgb(250 204 21);
+    border: 2px solid rgb(250 204 21);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.userIcon:hover{
+    color: white;
+    border: 2px solid white;
+}
