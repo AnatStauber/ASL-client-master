@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import BackToMenu from '../client_comps/backToMenu';
 
 export default function Learn(props) {
   const [selectedLetter, setSelectedLetter] = useState('A');
@@ -25,6 +26,9 @@ export default function Learn(props) {
   };
 
   return (
+    <div>
+      <BackToMenu />
+    
     <div className="container-fluid text-center mt-1" >
       <div className="row justify-content-center">
         <div className="col-12 mt-3">
@@ -59,6 +63,7 @@ export default function Learn(props) {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

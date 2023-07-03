@@ -30,7 +30,6 @@ const generateRandomLetters = () => {
     // Generate random letters for questions when the component mounts
     useEffect(() => {
        setQuestions(generateRandomLetters())
-    //    console.log(questions)
     }, []);
   
   // Start the timer when the current question changes
@@ -103,23 +102,27 @@ const generateRandomLetters = () => {
         {currentQuestionIndex<10 ? 
         (
           <div>            
-            <h2 className='text-center display-2 fw-bold'>Show us your signing skills!</h2>
-            <h1 className=' text-center text-info mt-4'>Show us the letter: <span className='fw-bold bg-info rounded-4 text-light px-3  py-2'>{currentQuestion}</span></h1>
-            <h4 className='text-center fw-bold mt-2 p-3 ' style={{cursor : "pointer"}} onClick={() => {
+            <h3 style={{color:"#FACC15"}} className='text-center fw-bold'>Show us your signing skills!</h3>
+            <h4 style={{color:"rgb(79 71 135)"}} className=' text-center mt-4'>Show us the letter: <span style={{backgroundColor:"rgb(79 71 135)"}} className='fw-bold  rounded-4 text-light px-3  py-2'>{currentQuestion}</span></h4>
+            <p className='text-center fw-bold mt-2 p-3 ' style={{cursor : "pointer"}} onClick={() => {
               setRemainingTime(30);
               setUserAnswer('');
               setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
               setTimerKey((prevKey) => prevKey + 1);
-            }}>Don't know the answer? Skip to the next letter &rarr; </h4>
+            }}>Don't know the answer? Skip to the next letter &rarr; </p>
 
-            <div className='d-flex justify-content-center mt-5'> 
+            <div className='d-flex justify-content-between'>
+           
+            <div className='mt-1 mx-4' style={{ position: 'relative' }}>
+            <SignDetection setGesture={setUserAnswer} />
+            <p className='text-center'>Detected gesture: <span className='text-danger fw-bold'>{userAnswer}</span> </p>
+            
+            <div  style={{ position: 'absolute', top: "-50Px", right: "-50px" }} className=' d-flex flex-column justify-content-center '> 
             <ShowTimer key={timerKey} />
             </div>
-            <div className='mt-4'>
-            <SignDetection setGesture={setUserAnswer} />
-            <p className='text-center'>Detected gesture: <span className='text-danger'>{userAnswer}</span> </p>
             </div>
-            <h3 className='mt-3 text-center'>Score: {score}</h3>
+            </div>
+            <h3  style={{color:"rgb(79 71 135)"}} className='mt-3 text-center'>Score: {score}</h3>
           </div>
           ) 
           : 
@@ -134,19 +137,7 @@ const generateRandomLetters = () => {
                setShowModal={setShowModal}
                message1={"correct!"}
                message2={"+10 points"}/>
-            //   <div className='container h-50 d-flex justify-content-center'>
-            // <Modal
-            //     isOpen={showModal}
-            //     onRequestClose={() => setShowModal(false)}
-            //     className="Modal"
-            //     overlayClassName="Overlay"
-            // >
-              
-            //     <h2 className='text-center mt-5'>Correct!</h2> 
-            //     <h2 className='text-center text-success fw-bold'> +10 points</h2>
-              
-            // </Modal>
-            // </div>
+        
             )}
       </div>
   );

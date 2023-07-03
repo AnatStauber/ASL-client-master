@@ -97,8 +97,8 @@ const SignDetection = (props)  => {
 
    return (
     <div className="container" >
-      <div className={`video-container `} style={{ position: 'relative' ,border: '2px solid black' , width:"fit-content",margin:'0 auto'}}>
-        <video ref={videoRef} autoPlay style={{height:`${size}vh`}} />
+      <div className={`video-container `} style={{ position: 'relative'  , width:"fit-content",margin:'0 auto'}}>
+        <video ref={videoRef} autoPlay style={{height:`${size}vh`,border: '2px solid black'}} />
         <div
           style={{
             position: 'absolute',

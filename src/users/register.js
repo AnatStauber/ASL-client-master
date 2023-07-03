@@ -36,8 +36,7 @@ const FileUpload = ({ handleFileSelect }) => {
 
 export default function SignUp() {
   const { setIsLoggedIn } = useContext(AuthContext);
-  const [firstName, setfirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -49,19 +48,16 @@ export default function SignUp() {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    console.log("enter signup");
+
     if (password !== confirmPassword) {
       return;
     }
 
     const bodyData = {
-      fullName: {
-        firstName: firstName,
-        lastName: lastName
-    },
+      username: username,
       email: email,
       password: password,
-      img: profilePicture
+      picture: profilePicture
     };
     try {
       const response = await doApiMethod(`${API_URL}/users/register`, 'POST', bodyData);
@@ -70,32 +66,38 @@ export default function SignUp() {
       setIsLoggedIn(true)
       localStorage.setItem('token', response.data.token);
       localStorage.setItem("userId", response.data.userId)
-      setIsLoggedIn(true); 
     } catch (error) {
       // Handle login error
-      console.error('Register error:', error);
-      alert("there was an error: " , error);
+      console.error('Login error:', error);
     }
 
-    
+    setIsLoggedIn(true); 
   };
 
   const handleProfilePictureChange = (e) => {
     const file = e.target.files[0];
-    console.log("file: " , file);
-    console.log("url file: " , URL.createObjectURL(file))
     setSelectedProfileImage(URL.createObjectURL(file));
     setProfilePicture(file);
   };
 
-  const handleFileSelect = (event) => {
-    const file = event.target.files[0];
-    console.log(file);
-    setSelectedProfileImage(URL.createObjectURL(file));
-    console.log(selectedProfileImage);
-    setProfilePicture(file);
-    setIsModalOpen(false);
+  const handleFileSelect = (event, isUploaded = true) => {
+    if (isUploaded) {
+      // When the user uploads a file
+      const file = event.target.files[0];
+      setSelectedProfileImage(URL.createObjectURL(file));
+      setProfilePicture(file);
+      setIsModalOpen(false);
+      console.log('Selected Image:', file); 
+    } else {
+      // When the user selects a photo from the list
+      const imageUrl = event.target.src;
+      setSelectedProfileImage(imageUrl);
+      setProfilePicture(null); // Reset the profilePicture state to null since it was not uploaded
+      setIsModalOpen(false);
+      console.log('Selected Image:', imageUrl);
+    }
   };
+  
 
   const toggleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -147,13 +149,10 @@ export default function SignUp() {
                 <div className="row row-cols-4 g-2" style={{ maxHeight: '250px', overflowY: 'auto' }}>
                   <FileUpload handleFileSelect={handleFileSelect} />
                   {Array.from(Array(20), (_, index) => (
-                    <div
-                      key={`../images/user${index + 1}.png`}
-                      className="col text-center"
-                      onClick={() => setSelectedProfileImage(`../images/user${index + 1}.png`)}
-                    >
-                      <img src={`../images/user${index + 1}.png`} alt={`User ${index + 1}`} className="profile-image" />
-                    </div>
+                   <div className="col text-center" onClick={(event) => handleFileSelect(event, false)}>
+                   <img src={`../images/user${index + 1}.png`} alt={`User ${index + 1}`} className="profile-image" />
+                 </div>
+                 
                   ))}
                 </div>
               </div>
@@ -166,30 +165,20 @@ export default function SignUp() {
 
   return (
     <div className="container mt-4" style={{ maxWidth: '600px' }}>
-      <form >
+      <form onSubmit={handleSignUp}>
         <div className="mb-3 form-group">
           <div>
             {renderProfileCircle()}
           </div>
-          <label htmlFor="firstName" className="form-label">
-            First Name:
+          <label htmlFor="username" className="form-label">
+            Username:
           </label>
           <input
             type="text"
-            id="firstName"
+            id="username"
             className="form-control"
-            value={firstName}
-            onChange={(e) => setfirstName(e.target.value)}
-          />
-          <label htmlFor="lastName" className="form-label">
-            Last Name:
-          </label>
-          <input
-            type="text"
-            id="lastName"
-            className="form-control"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className="mb-3 form-group">
@@ -238,7 +227,7 @@ export default function SignUp() {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <button onSubmit={handleSignUp} type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary">
           Sign Up
         </button>
       </form>
