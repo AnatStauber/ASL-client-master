@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { API_URL, doApiMethod } from '../services/apiService';
+import { API_URL, doApiMethod, doApiGet } from '../services/apiService';
 import { AuthContext } from '../context';
+import { Navigate  } from 'react-router-dom';
 
 
 export default function Login() {
@@ -21,9 +22,14 @@ export default function Login() {
       const response = await doApiMethod(`${API_URL}/users/login`, 'POST', bodyData);
       // Handle successful login response
       console.log('Login successful:', response.data);
-      setIsLoggedIn(true)
+      
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem("userId", response.data.userId)
+      let userId = response.data.user._id;
+      let firstName = response.data.user.fullName.firstName;
+      localStorage.setItem("userId", userId)
+      localStorage.setItem("firstName", firstName);
+      fetchScore(userId);
+      setIsLoggedIn(true)
     } catch (error) {
       // Handle login error
       console.error('Login error:', error);
@@ -31,8 +37,20 @@ export default function Login() {
 
   };
 
+  const fetchScore = async(userId) => {
+    let url = API_URL + "/scores/getScoresByUserId/"+userId;
+  let resp = await doApiGet(url)
+  if (resp.length >0){
+    localStorage.setItem("score",resp.score);
+  } else {
+    localStorage.setItem("score", 0);
+  }
+}
+  
   return (
-    <div className="container mt-4 " style={{ maxWidth: '600px' }}>
+    <div>
+    {!isLoggedIn  ? (
+      <div className="container mt-4 " style={{ maxWidth: '600px' }}>
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <div className="mb-3">
@@ -65,6 +83,11 @@ export default function Login() {
       <div className="text-center mt-3">
         <p>Don't have an account? <a href="/user/register">Register</a></p>
       </div>
+      </div>
+    ): 
+  (
+    <Navigate to={{ pathname: '/' }}> </Navigate>
+  )}
     </div>
   );
 }

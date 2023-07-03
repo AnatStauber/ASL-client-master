@@ -25,6 +25,7 @@ const Practice = () => {
   useEffect(() => {
     // Automatically check if the gesture matches the letter
     checkGesture();
+    console.log(userAnswer);
   }, [userAnswer]);
 
   const checkGesture = () => {

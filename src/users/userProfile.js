@@ -18,7 +18,8 @@ const UserDetails = () => {
 
   const fetchUserDetails = async () => {
     try {
-      const response = await doApiGet(`${API_URL}/user/myInfo`); 
+      console.log("entered fetch");
+      const response = await doApiGet(`${API_URL}/users/myInfo`); 
       setUserDetails(response.data);
     } catch (error) {
       console.error(error);
@@ -33,10 +34,18 @@ const UserDetails = () => {
   return (
     <div>
       {userDetails && (
-        <div>
-          <h2>User Details</h2>
-          <p>Username: {userDetails.username}</p>
-          <p>Email: {userDetails.email}</p>
+        <div className='container'>
+          <h2 className="display-3 text-center mt-4 fw-bold"  style={{color:"#FACC15"}}>Your Profile</h2>
+          <div className='d-flex justify-content-center'>
+            <div className='d-flex flex-column justify-content-between'>
+            {localStorage.getItem("img") && (
+              <img className="mt-4" src={localStorage.getItem("img")} alt="profile picture"></img>)}
+            <p className='text-left mt-4 fw-bold'> First Name: <span className='fw-normal'>{userDetails.fullName.firstName}</span> </p>
+            <p className='text-left mt-1 fw-bold'>Last Name:  <span className='fw-normal'>{userDetails.fullName.lastName}</span></p>
+            <p className='text-left mt-1 fw-bold'>Email:  <span className='fw-normal'>{userDetails.email}</span></p>
+            <p className='text-left mt-1 fw-bold'>Score:  <span className='fw-normal'>{localStorage.getItem("score")}</span></p>
+            </div>
+          </div>
         </div>
       )}
     </div>

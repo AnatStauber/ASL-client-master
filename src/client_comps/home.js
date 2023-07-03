@@ -4,10 +4,10 @@ import "./home.css"
 
 export default function Home() {
   return (
-    <div className="main container-fluid" >
+    <div className="main container-fluid" style={{position: "relative", width: "100%", overflowX: "hidden",overflowY:"visible", minHeight:"75vh"}}>
       <img className="img1" src="../Byron-Ready-Circle-blue_sm.webp" alt="byron"></img>
     <div className='container text-center'>
-      <h1 className=' fw-bold display-3' style={{marginTop:"100px"}}>Learn ASL Online</h1>
+      <h1 className=' fw-bold display-3' style={{marginTop:"25vh"}}>Learn ASL Online</h1>
       <h2 className=' mt-5 '>Take learning American Sign Language into your own hands with our online ASL tutorial!</h2>
     </div>
     <img className="img2" src="../Sandra-Circle-Yellow_sm.webp" alt="sandra"></img>

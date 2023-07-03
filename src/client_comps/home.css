@@ -6,23 +6,23 @@
 
 .img1{
     position: absolute;
-    top: 36%;
+    top: 7vh;
     left:-80px;
+    
 }
 
 
-
 h2{
-    
     max-width: 700px;
     margin: 0 auto;
 }
 
 .img2{
     position: absolute;
-    top: 60%;
+    top: 30vh;
     right:-80px;
 }
+
 
 
 button:hover{

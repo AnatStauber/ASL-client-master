@@ -1,15 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context';
 import "./nav.css"
+import MenuBox from './clientMenuBox';
+
 
 export default function ClientNav() {
   const token = localStorage.getItem('token');
+  const firstName = localStorage.getItem("firstName") || "Guest";
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  useEffect(() => {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log(isLoggedIn);
   }, [isLoggedIn])
 
+  const handleLogout = () => {
+    setMenuOpen(false);
+    setIsLoggedIn(false);
+    localStorage.clear();
+    navigate("/");
+  };
+
+  const handleProfile = () => {
+    setMenuOpen(false);
+    navigate("/user/userProfile");
+  }
+
+  const handleMenuClick = () => {
+    setMenuOpen(!isMenuOpen); // Toggle the menu's open state
+  };
 
   return (
 
@@ -24,6 +45,7 @@ export default function ClientNav() {
                 </Link>
               </li>
               <li className="nav-item">
+
                 {isLoggedIn ? (
                    <Link to="/user/userProfile" className="icon-link  ">
                    <i className=" fa fa-user fa-3x" aria-hidden="true"></i>
@@ -42,18 +64,21 @@ export default function ClientNav() {
         </ul>
 
         <div className="user-picture" style={{minWidth:"150px"}}>
-        {token != "null" ? (
-                   <Link to="/user/userProfile" className="icon-link  ">
+        {isLoggedIn ? (
+                   <div>
                    <img src={localStorage.getItem('userPicture')} alt="user"></img>
-                 </Link>
+                   <p style={{color:"#FACC15"}}> Welcome, <span onClick={handleMenuClick} style={{cursor:"pointer", fontWeight:"bold"}}>{firstName} </span>! </p>
+                  {isMenuOpen && <MenuBox onLogout={handleLogout} onProfile={handleProfile} />}
+                
+                 </div>
                 ) : (
                 <Link to="/user/login" className="icon-link  ">
                   <i className="userIcon p-3 fa fa-user fa-3x " aria-hidden="true" style={{borderRadius: "40%"}} ></i>
                 </Link>
                 )}
-            
             </div>
             </div>
+           
        </header>
 
   );

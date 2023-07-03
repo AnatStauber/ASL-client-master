@@ -36,7 +36,8 @@ const FileUpload = ({ handleFileSelect }) => {
 
 export default function SignUp() {
   const { setIsLoggedIn } = useContext(AuthContext);
-  const [username, setUsername] = useState('');
+  const [firstName, setfirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -48,16 +49,19 @@ export default function SignUp() {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-
+    console.log("enter signup");
     if (password !== confirmPassword) {
       return;
     }
 
     const bodyData = {
-      username: username,
+      fullName: {
+        firstName: firstName,
+        lastName: lastName
+    },
       email: email,
       password: password,
-      picture: profilePicture
+      img: profilePicture
     };
     try {
       const response = await doApiMethod(`${API_URL}/users/register`, 'POST', bodyData);
@@ -66,23 +70,29 @@ export default function SignUp() {
       setIsLoggedIn(true)
       localStorage.setItem('token', response.data.token);
       localStorage.setItem("userId", response.data.userId)
+      setIsLoggedIn(true); 
     } catch (error) {
       // Handle login error
-      console.error('Login error:', error);
+      console.error('Register error:', error);
+      alert("there was an error: " , error);
     }
 
-    setIsLoggedIn(true); 
+    
   };
 
   const handleProfilePictureChange = (e) => {
     const file = e.target.files[0];
+    console.log("file: " , file);
+    console.log("url file: " , URL.createObjectURL(file))
     setSelectedProfileImage(URL.createObjectURL(file));
     setProfilePicture(file);
   };
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
+    console.log(file);
     setSelectedProfileImage(URL.createObjectURL(file));
+    console.log(selectedProfileImage);
     setProfilePicture(file);
     setIsModalOpen(false);
   };
@@ -156,20 +166,30 @@ export default function SignUp() {
 
   return (
     <div className="container mt-4" style={{ maxWidth: '600px' }}>
-      <form onSubmit={handleSignUp}>
+      <form >
         <div className="mb-3 form-group">
           <div>
             {renderProfileCircle()}
           </div>
-          <label htmlFor="username" className="form-label">
-            Username:
+          <label htmlFor="firstName" className="form-label">
+            First Name:
           </label>
           <input
             type="text"
-            id="username"
+            id="firstName"
             className="form-control"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={firstName}
+            onChange={(e) => setfirstName(e.target.value)}
+          />
+          <label htmlFor="lastName" className="form-label">
+            Last Name:
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            className="form-control"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </div>
         <div className="mb-3 form-group">
@@ -218,7 +238,7 @@ export default function SignUp() {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button onSubmit={handleSignUp} type="submit" className="btn btn-primary">
           Sign Up
         </button>
       </form>
