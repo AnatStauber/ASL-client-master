@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
+// import { doApiMethod } from './apiService';
+import axios from "axios"
 
 const SignDetection = (props)  => {
   const videoRef = useRef(null);
@@ -6,7 +8,18 @@ const SignDetection = (props)  => {
   const [squareTop, setSquareTop] = useState('100px');
   const [squareLeft, setSquareLeft] = useState('100px');
   const [gesture, predictGesture] = useState('');
+  const [size, setSize] = useState(60);
+  
 
+  useEffect(() => {
+    if (props.size){
+      console.log("wwww");
+      setSize(props.size);
+    }
+    console.log(size)
+  }, []);
+
+  const url = "http://localhost:5000"
   useEffect(() => {
     const captureVideo = async () => {
       const constraints = { video: true };
@@ -50,7 +63,8 @@ const SignDetection = (props)  => {
 
       try {
       
-        const response = await fetch('http:localhost:5000/api/detect-gesture/', {
+        
+        const response = await fetch(`${url}/api/detect-gesture`, {
           method: 'POST',
           body: JSON.stringify({ image }),
           headers: { 'Content-Type': 'application/json' },
@@ -82,18 +96,20 @@ const SignDetection = (props)  => {
   }, []);
 
    return (
-    <div style={{ position: 'relative' ,border: '2px solid black' , maxWidth: "fit-content", margin:'0 auto'}}>
-      <video ref={videoRef} autoPlay />
-      <div
-        style={{
-          position: 'absolute',
-          top: squareTop, // Set the calculated top position
-          left: squareLeft, // Set the calculated left position
-          width: '224px',
-          height: '224px',
-          border: '4px solid red',
-        }}
-      ></div>
+    <div className="container" >
+      <div className={`video-container `} style={{ position: 'relative' ,border: '2px solid black' , width:"fit-content",margin:'0 auto'}}>
+        <video ref={videoRef} autoPlay style={{height:`${size}vh`}} />
+        <div
+          style={{
+            position: 'absolute',
+            top: squareTop , // Set the calculated top position
+            left: squareLeft, // Set the calculated left position
+            width:  `${224*(size/100)}px`,
+            height:`${224*(size/100)}px`,
+            border: '4px solid red',
+          }}
+        ></div>
+      </div>
       {/* <p className='text-center'>Detected gesture: <span className='text-danger'>{gesture}</span> </p> */}
       
     </div>

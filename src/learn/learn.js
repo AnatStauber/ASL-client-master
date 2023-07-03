@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Learn(props) {
   const [selectedLetter, setSelectedLetter] = useState('A');
+  const [size, setSize] = useState('600px');
+  
+
+  useEffect(() => {
+    if (props.size){
+      setSize(props.size);
+    }
+    console.log(size)
+  }, []);
 
   const handleClick = (letter) => {
     setSelectedLetter(letter);
@@ -16,10 +25,10 @@ export default function Learn(props) {
   };
 
   return (
-    <div className="container-fluid text-center mt-1">
+    <div className="container-fluid text-center mt-1" >
       <div className="row justify-content-center">
         <div className="col-12 mt-3">
-          <div className="container" style={{ width: '600px' }}>
+          <div className="container" style={{ width: `${size}` }}>
             <div className="row justify-content-center">
               <div className="col-12 col-sm-8">
                 <div className="embed-responsive embed-responsive-16by9 ">
@@ -29,14 +38,14 @@ export default function Learn(props) {
                 </div>
               </div>
               <div className="col-12 mt-4">
-                <div className="row justify-content-center">
+                <div className="row justify-content-center mb-3">
                   {[...Array(26)].map((_, index) => {
                     const letter = String.fromCharCode(65 + index);
                     return (
-                      <div key={letter} className="col-2 m-1">
+                      <div key={letter} className="col-1 m-2">
                         <button
                           className={`btn btn-primary btn-block ${selectedLetter === letter ? 'active' : ''}`}
-                          style={{ width: '100px' }}
+                          style={{ width: '50px' }}
                           onClick={() => handleClick(letter)}
                         >
                           {letter}

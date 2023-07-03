@@ -42,13 +42,18 @@ const Practice = () => {
         <div className='d-flex mt-5 justify-content-around'>
        <div className=''>
         <h2 className='text-center mb-3'> Choose a letter : </h2>
-       <Learn onChooseLetter={handleChosenLetter}/>
+        <div >
+          <Learn onChooseLetter={handleChosenLetter} size={"400px"}/>  
+        </div>
+       
         </div>   
       
       <div className=''>
       <h2 className='text-center mb-5'> Now try for yourself: </h2>
-      <SignDetection setGesture={setUserAnswer}/>
-      
+      <div className=''>
+      <SignDetection setGesture={setUserAnswer} size={50} />
+      </div>
+
       {showModal && (
          <OpenModal 
          showModal={true}

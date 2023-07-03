@@ -7,6 +7,7 @@ export default function Menu() {
     <div
       className="container justify-content-center"
       style={{
+        minHeight:"70vh",
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -15,11 +16,11 @@ export default function Menu() {
         margin: '0 auto', // Centering the container
       }}
     >
-      <h1 className='mt-5 pt-5 display-4' style={{ fontWeight: "700",color: "#4F4787"}}>Signs for Begginers</h1>
+      <h1 className=' pt-4 display-6' style={{ fontWeight: "700",color: "#4F4787"}}>Signs for Begginers</h1>
       <p style={{
           lineHeight:"1.5",
           marginTop:"20px",
-          fontSize: "1.5rem",
+          fontSize: "1.35rem",
           fontWeight: "300",
           color: "#4F4787",
           textAlign: "center"
