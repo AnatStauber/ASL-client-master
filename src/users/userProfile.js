@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context';
 import { useNavigate } from 'react-router-dom'; 
 import { API_URL, doApiGet } from '../services/apiService';
-import "../main.css"
+
 
 const UserDetails = () => {
   const navigate = useNavigate(); 

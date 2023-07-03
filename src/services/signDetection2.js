@@ -46,7 +46,7 @@ const SignDetection = (props)  => {
 
       
       const image = canvas.toDataURL('image/jpeg');
-      console.log (JSON.stringify({ image }))
+      // console.log (JSON.stringify({ image }))
 
       try {
       

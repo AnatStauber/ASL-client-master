@@ -54,6 +54,7 @@ export default function Login() {
           <input
             type="password"
             id="password"
+            minLength="3" maxLength="99"
             className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

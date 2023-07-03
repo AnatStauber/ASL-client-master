@@ -1,10 +1,8 @@
-* {
-    font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
 
 body{
     background-color: white !important;
 }
+
 .btn1 {
     width: 100%;
     background-color: #FACC15;
@@ -31,11 +29,3 @@ body{
     color: #4F4787;
 }
 
-
-.container p{
-    line-height:1.5;
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: #4F4787;
-    text-align: center;
-}

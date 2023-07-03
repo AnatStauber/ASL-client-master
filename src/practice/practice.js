@@ -8,7 +8,7 @@ import { Link, Navigate  } from 'react-router-dom';
 import Learn from '../learn/learn';
 import Game from '../play/game';
 import OpenModal from '../play/modal';
-import "../main.css"
+
 
 
 const Practice = () => {

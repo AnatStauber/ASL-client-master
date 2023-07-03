@@ -4,7 +4,7 @@ import SignDetection from '../services/signDetection2';
 import ShowTimer from '../services/showTimer';
 import OpenModal from './modal';
 import { Link, Navigate  } from 'react-router-dom';
-import "../main.css"
+
 
 const generateRandomLetters = () => {
     const alphabet = 'ABCDEFGHIKLMNOPQRSTUVWXY';

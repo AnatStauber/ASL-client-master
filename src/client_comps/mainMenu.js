@@ -7,7 +7,6 @@ export default function Menu() {
     <div
       className="container justify-content-center"
       style={{
-        borderRadius: '5px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -16,11 +15,18 @@ export default function Menu() {
         margin: '0 auto', // Centering the container
       }}
     >
-      <h1 className='mt-5 pt-5 display-4'>Signs for Begginers</h1>
-      <p >come and learn how to sign the ASL alphabet with our online tutorial!
+      <h1 className='mt-5 pt-5 display-4' style={{ fontWeight: "700",color: "#4F4787"}}>Signs for Begginers</h1>
+      <p style={{
+          lineHeight:"1.5",
+          marginTop:"20px",
+          fontSize: "1.5rem",
+          fontWeight: "300",
+          color: "#4F4787",
+          textAlign: "center"
+      }}>come and learn how to sign the ASL alphabet with our online tutorial!
 with these 3 simple steps - you can learn to sign quickly and easily!</p>
 <div className='mx-auto mt-3'>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '80%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '40vw' }}>
       <Link to="/learn">
           <button className="btn btn1 " style={{ width: '100%' }}>
             Learn

@@ -2,6 +2,7 @@
 import React, { useState, useContext, useRef } from 'react';
 import { FaEdit, FaUpload } from 'react-icons/fa';
 import { AuthContext } from '../context';
+import { API_URL, doApiMethod } from '../services/apiService';
 
 
 const FileUpload = ({ handleFileSelect }) => {
@@ -45,13 +46,30 @@ export default function SignUp() {
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
       return;
     }
 
+    const bodyData = {
+      username: username,
+      email: email,
+      password: password,
+      picture: profilePicture
+    };
+    try {
+      const response = await doApiMethod(`${API_URL}/users/register`, 'POST', bodyData);
+      // Handle successful login response
+      console.log('register successful:', response.data);
+      setIsLoggedIn(true)
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem("userId", response.data.userId)
+    } catch (error) {
+      // Handle login error
+      console.error('Login error:', error);
+    }
 
     setIsLoggedIn(true); 
   };
@@ -176,6 +194,7 @@ export default function SignUp() {
               id="password"
               className="form-control"
               value={password}
+              minLength="3" maxLength="99"
               onChange={(e) => setPassword(e.target.value)}
             />
             <button
