@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { API_URL, doApiGet } from '../services/apiService';
 import './highScores.css';
+import jwt_decode from 'jwt-decode'
+import { AuthContext } from '../context';
 
 
 export default function HighScores() {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [data, setData] = useState([]); // הגדרת משתנה state למידע
 
+  
   useEffect(() => {
     getData();
   }, []);

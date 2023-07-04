@@ -2,13 +2,33 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context';
 import { useNavigate } from 'react-router-dom'; 
 import { API_URL, doApiGet } from '../services/apiService';
-
+import jwt_decode from 'jwt-decode'
 
 const UserDetails = () => {
   const navigate = useNavigate(); 
-
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [userDetails, setUserDetails] = useState(null);
+
+  useEffect(() => {
+    let token = localStorage.getItem('token');
+    //check token
+    if (token!=null){
+      //check if token is expired:
+      let decodedToken = jwt_decode(token);
+      console.log("Decoded Token", decodedToken);
+      let currentDate = new Date();
+      // JWT expiration is in seconds
+      if (decodedToken.exp * 1000 < currentDate.getTime()) {
+        console.log("Token expired.");
+        alert("your token is expired! please log in again.")
+        setIsLoggedIn(false);
+        localStorage.clear();
+      } else {
+        console.log("Valid token");   
+      }
+  }
+  }, []);
+
 
   useEffect(() => {
     if (isLoggedIn) {

@@ -48,7 +48,7 @@ export default function Learn(props) {
                   </video>
                 </div>
               </div>
-              <div className="col-12  ">
+              <div className="col-12 p-0 ">
                 <div className="row justify-content-center mb-3">
                   {[...Array(26)].map((_, index) => {
                     const letter = String.fromCharCode(65 + index);

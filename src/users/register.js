@@ -41,7 +41,7 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePicture, setProfilePicture] = useState("null");
   const [showPassword, setShowPassword] = useState(false);
   const [selectedProfileImage, setSelectedProfileImage] = useState("../images/user.png");
   const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -56,8 +56,14 @@ export default function SignUp() {
       return;
     }
 
-    if (profilePicture == null){
-      setProfilePicture("");
+    console.log("signup, selectedIMg: ", selectedProfileImage);
+    console.log("signup, profilePic: ", profilePicture);
+    let finalProfilePic = "null";
+    if (profilePicture==null){
+      console.log("selected img:" , selectedProfileImage);
+     finalProfilePic = selectedProfileImage;
+    } else {
+      finalProfilePic = profilePicture;
     }
 
     const bodyData = {
@@ -67,19 +73,33 @@ export default function SignUp() {
       },
       email: email,
       password: password,
-      img: profilePicture 
+      img: finalProfilePic 
     };
     try {
       const response = await doApiMethod(`${API_URL}/users/register`, 'POST', bodyData);
       // Handle successful login response
       console.log('register successful:', response.data);
       setIsLoggedIn(true)
+      let userId = response.data.user._id;
+      let firstName = response.data.user.fullName.firstName;
+      let role = response.data.user.role;
+      let userProfilePic = response.data.user.img;
+      localStorage.setItem("userId", userId)
+      localStorage.setItem("firstName", firstName);
+      localStorage.setItem("role", role);
+      localStorage.setItem("score", 0);
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem("userId", response.data.userId)
+      localStorage.setItem("profilePic", userProfilePic);
       setIsLoggedIn(true);
     } catch (error) {
       // Handle login error
       console.error('Registration error:', error);
+      if (Array.isArray(error.response.data)) {
+        alert (error.response.data[0].message);
+      }
+      else {
+        alert (error.response.data.msg)
+      }
     }
 
     
@@ -94,11 +114,11 @@ export default function SignUp() {
   const handleFileSelect = (event, isUploaded = true) => {
     if (isUploaded) {
       // When the user uploads a file
-      const file = event.target.files[0];
-      setSelectedProfileImage(URL.createObjectURL(file));
+      let file = event.target.files[0];
+      // setSelectedProfileImage(URL.createObjectURL(file));
+      file = toBase64(file);
       setProfilePicture(file);
       setIsModalOpen(false);
-      console.log('Selected Image:', file); 
     } else {
       // When the user selects a photo from the list
       const imageUrl = event.target.src;
@@ -109,6 +129,16 @@ export default function SignUp() {
     }
   };
   
+  const toBase64 = (file) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      // `reader.result` contains the base64 string representation of the file
+      setProfilePicture(reader.result);
+    };
+
+    // Read the file as a Data URL (base64 string)
+    reader.readAsDataURL(file);
+  };
 
   const toggleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);

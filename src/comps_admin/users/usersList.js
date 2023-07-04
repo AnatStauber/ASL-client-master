@@ -25,7 +25,7 @@ export default function UsersList() {
     }
     catch(err){
       console.log(err);
-      alert("there problem ,try again later")
+      alert("there is a problem ,try again later")
     }
 
   }
