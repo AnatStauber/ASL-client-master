@@ -3,7 +3,7 @@ import React, { useState, useContext, useRef } from 'react';
 import { FaEdit, FaUpload } from 'react-icons/fa';
 import { AuthContext } from '../context';
 import { API_URL, doApiMethod } from '../services/apiService';
-
+import { Navigate  } from 'react-router-dom';
 
 const FileUpload = ({ handleFileSelect }) => {
   const fileInputRef = useRef(null);
@@ -35,8 +35,9 @@ const FileUpload = ({ handleFileSelect }) => {
 };
 
 export default function SignUp() {
-  const { setIsLoggedIn } = useContext(AuthContext);
-  const [username, setUsername] = useState('');
+  
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -45,19 +46,28 @@ export default function SignUp() {
   const [selectedProfileImage, setSelectedProfileImage] = useState("../images/user.png");
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
+      alert ("passwords don't match!");
       return;
     }
 
+    if (profilePicture == null){
+      setProfilePicture("");
+    }
+
     const bodyData = {
-      username: username,
+      fullName: {
+        firstName: firstName,
+        lastName: lastName
+      },
       email: email,
       password: password,
-      picture: profilePicture
+      img: profilePicture 
     };
     try {
       const response = await doApiMethod(`${API_URL}/users/register`, 'POST', bodyData);
@@ -66,12 +76,13 @@ export default function SignUp() {
       setIsLoggedIn(true)
       localStorage.setItem('token', response.data.token);
       localStorage.setItem("userId", response.data.userId)
+      setIsLoggedIn(true);
     } catch (error) {
       // Handle login error
-      console.error('Login error:', error);
+      console.error('Registration error:', error);
     }
 
-    setIsLoggedIn(true); 
+    
   };
 
   const handleProfilePictureChange = (e) => {
@@ -164,21 +175,35 @@ export default function SignUp() {
   };
 
   return (
+    <div>
+  {isLoggedIn ? (
+    <Navigate to={{ pathname: '/' }}> </Navigate>
+  ) : (
     <div className="container mt-4" style={{ maxWidth: '600px' }}>
       <form onSubmit={handleSignUp}>
         <div className="mb-3 form-group">
           <div>
             {renderProfileCircle()}
           </div>
-          <label htmlFor="username" className="form-label">
-            Username:
+          <label htmlFor="firstName" className="form-label">
+            First Name:
           </label>
           <input
             type="text"
-            id="username"
+            id="firstName"
             className="form-control"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <label htmlFor="lastName" className="form-label">
+            Last Name:
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            className="form-control"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </div>
         <div className="mb-3 form-group">
@@ -237,5 +262,8 @@ export default function SignUp() {
         </p>
       </div>
     </div>
+  )}
+  </div>
+    
   );
 }

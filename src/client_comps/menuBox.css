@@ -1,7 +1,7 @@
 .menu-overlay {
     position: absolute;
-    top: 15vh;
-    width: 100%;
+    top: 10vh;
+    width: 11vw;
     height: fit-content;
     /* background-color: rgba(0, 0, 0, 0.5);  */
     display: flex;
@@ -13,7 +13,7 @@
   
   .menu-box {
     background-color: white;
-    padding: 20px;
+    padding: 9px;
     border-radius: 8px;
     border: 2px solid #FACC15;
   }

@@ -4,7 +4,7 @@ import "./home.css"
 
 export default function Home() {
   return (
-    <div className="main container-fluid" style={{position: "relative", width: "100%", overflow: "hidden", minHeight:"83vh", zIndex:"999"}}>
+    <div className="main container-fluid" style={{position: "relative", width: "100%", overflow: "hidden", minHeight:"80vh", zIndex:"999"}}>
       <img className="img1" src="../Byron-Ready-Circle-blue_sm.webp" alt="byron" ></img>
     <div className='container text-center'>
       <h1 className=' fw-bold display-4' style={{marginTop:"20vh"}}>Learn ASL Online</h1>

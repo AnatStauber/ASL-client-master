@@ -3,7 +3,7 @@ import BackToMenu from '../client_comps/backToMenu';
 
 export default function Learn(props) {
   const [selectedLetter, setSelectedLetter] = useState('A');
-  const [size, setSize] = useState('600px');
+  const [size, setSize] = useState('500px');
   const [showBackButton, setShowBackButton] = useState(true);
 
   useEffect(() => {
@@ -36,24 +36,24 @@ export default function Learn(props) {
     
       
     
-    <div className="container-fluid text-center mt-1" >
-      <div className="row justify-content-center">
-        <div className="col-12 mt-3">
-          <div className="container" style={{ width: `${size}` }}>
-            <div className="row justify-content-center">
-              <div className="col-12 col-sm-8">
+    <div className="container-fluid text-center " >
+      <div className="row justify-content-center ">
+        <div className="col-12 ">
+          <div className="container " style={{ width: `${size}` }} >
+            <div className="row justify-content-center ">
+              <div className="col-12 col-sm-8 ">
                 <div className="embed-responsive embed-responsive-16by9 ">
                   <video src={getVideoSource(selectedLetter)} className="embed-responsive-item w-100"  autoPlay loop>
                     Your browser does not support the video tag.
                   </video>
                 </div>
               </div>
-              <div className="col-12 mt-4">
+              <div className="col-12  ">
                 <div className="row justify-content-center mb-3">
                   {[...Array(26)].map((_, index) => {
                     const letter = String.fromCharCode(65 + index);
                     return (
-                      <div key={letter} className="col-1 m-2">
+                      <div key={letter} className="col-1 mx-2 my-1 "> 
                         <button
                           className={`btn btn-primary btn-block ${selectedLetter === letter ? 'active' : ''}`}
                           style={{ width: '50px' }}

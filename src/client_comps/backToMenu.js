@@ -8,7 +8,8 @@ export default function BackToMenu()  {
     
    
     <Link to="/menu" className='ms-3'>
-    <FaRegArrowAltCircleLeft />
+      <div className='display-6 ms-4'>
+    <FaRegArrowAltCircleLeft /></div>
   </Link>
   </div>
   )

@@ -26,8 +26,10 @@ export default function Login() {
       localStorage.setItem('token', response.data.token);
       let userId = response.data.user._id;
       let firstName = response.data.user.fullName.firstName;
+      let role = response.data.user.role;
       localStorage.setItem("userId", userId)
       localStorage.setItem("firstName", firstName);
+      localStorage.setItem("role", role);
       fetchScore(userId);
       setIsLoggedIn(true)
     } catch (error) {

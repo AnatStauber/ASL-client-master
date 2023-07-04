@@ -8,10 +8,10 @@ const MenuBox = (props) => {
         <div className="menu-box">
           <ul >
             <li>
-            <p style={{color:"rgb(79 71 135)", fontWeight:"bold", cursor:"pointer"}} onClick={props.onProfile}>View Profile</p>
+            <p style={{color:"rgb(79 71 135)",  cursor:"pointer"}} onClick={props.onProfile}>View Profile</p>
             </li>
             <li>
-              <p style={{color:"rgb(79 71 135)", fontWeight:"bold", cursor:"pointer"}} onClick={props.onLogout}>Log Out</p>
+              <p style={{color:"rgb(79 71 135)",  cursor:"pointer"}} onClick={props.onLogout}>Log Out</p>
             </li>
           </ul>
         </div>
