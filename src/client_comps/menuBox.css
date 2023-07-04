@@ -6,6 +6,7 @@
     /* background-color: rgba(0, 0, 0, 0.5);  */
     display: flex;
     z-index: 99999999;
+    margin-top: 20px;
     
     /* align-items: center; */
     /* justify-content: center; */

@@ -1,8 +1,32 @@
-import React from 'react';
+import React, {  useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import "./home.css"
+import jwt_decode from 'jwt-decode'
+import { AuthContext } from '../context';
 
 export default function Home() {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
+  useEffect(() => {
+    let token = localStorage.getItem('token');
+    //check token
+    if (token!=null){
+      //check if token is expired:
+      let decodedToken = jwt_decode(token);
+      console.log("Decoded Token", decodedToken);
+      let currentDate = new Date();
+      // JWT expiration is in seconds
+      if (decodedToken.exp * 1000 < currentDate.getTime()) {
+        console.log("Token expired.");
+        setIsLoggedIn(false);
+        localStorage.clear();
+      } else {
+        console.log("Valid token");   
+      }
+  }
+  }, []);
+
+
   return (
     <div className="main container-fluid" style={{position: "relative", width: "100%", overflow: "hidden", minHeight:"80vh", zIndex:"999"}}>
       <img className="img1" src="../Byron-Ready-Circle-blue_sm.webp" alt="byron" ></img>

@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-   const { isAdmin, setIsAdmin } = useContext(AuthContext);
+  const { isAdmin, setIsAdmin } = useContext(AuthContext);
   useEffect(() => {
 
   }, [isLoggedIn])
@@ -31,26 +31,15 @@ export default function Login() {
       let userId = response.data.user._id;
       let firstName = response.data.user.fullName.firstName;
       let role = response.data.user.role;
-      let userProfilePic = response.data.user.img;
       localStorage.setItem("userId", userId)
       localStorage.setItem("firstName", firstName);
       localStorage.setItem("role", role);
-      localStorage.setItem("profilePic", userProfilePic);
+     
       fetchScore(userId);
-      console.log(isAdmin);
       setIsLoggedIn(true)
     } catch (error) {
       // Handle login error
       console.error('Login error:', error);
-      if (Array.isArray(error.response.data)) {
-        alert (error.response.data[0].message);
-      }
-      else {
-        alert (error.response.data.msg)
-      }
-      // console.log (error.response.data[0].message);
-      
-
     }
 
   };

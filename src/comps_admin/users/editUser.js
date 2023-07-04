@@ -46,16 +46,16 @@ export default function EditUser() {
       let resp = await doApiMethod(url, "PUT", bodyFormData)
       console.log(resp)
       if (resp.data) {
-        alert("user update succefuly");
+        alert("user updated successfuly");
         nav("/admin/users")
       }
       else {
-        alert("There problem , try again later")
+        alert("There is a problem , try again later")
       }
     }
     catch (err) {
       console.log(err);
-      alert("There problem , or category url already in system")
+      alert("There is a problem, try again later")
     }
   }
 
