@@ -4,7 +4,7 @@ import GameOver from './gameOver';
 import SignDetection from '../services/signDetection2';
 import ShowTimer from '../services/showTimer';
 import OpenModal from './modal';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode'
 import { AuthContext } from '../context';
 
@@ -31,6 +31,8 @@ const Game = () => {
   const [timerKey, setTimerKey] = useState(0);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   let token = localStorage.getItem('token');
+  const navigate = useNavigate();
+
   // Generate random letters for questions when the component mounts
   useEffect(() => {
     setQuestions(generateRandomLetters());
@@ -52,7 +54,7 @@ const Game = () => {
       }
   } else {
     alert ("you must be logged in to play!");
-    window.location("/user/login");
+    navigate('/user/login')
   }
   }, []);
 
