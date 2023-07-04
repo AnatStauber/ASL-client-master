@@ -19,7 +19,8 @@ import { AuthProvider } from './context';
 import Practice from './practice/practice';
 import Menu from './client_comps/mainMenu';
 import UserDetails from './users/userProfile';
-import HighScores from "./general_comps/highScores"
+import HighScores from "./general_comps/highScores";
+import Footer from "./general_comps/footer";
 // מפעיל את האפשרות באקספרס לעבוד עם קבצים
 
 
@@ -56,7 +57,7 @@ function App() {
       <Route path="/user/register" element={< SignUp/>} /> 
       <Route path="/user/userProfile" element={< UserDetails/>} /> 
      {/* <Route path="/*" element={<h2>Page 404</h2>}/> */}
-
+     <Route path="/*" element={<Footer />} />
       </Routes>
       <ToastContainer position="top-left" theme="colored" />
     </BrowserRouter>

@@ -27,9 +27,9 @@ export default function HighScores() {
     <table>
       <thead>
         <tr>
-          <th>name</th>
-          <th>score</th>
-          <th>data</th>
+          <th>Name</th>
+          <th>Score</th>
+          <th>Date</th>
         </tr>
       </thead>
       <tbody>

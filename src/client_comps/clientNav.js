@@ -36,7 +36,7 @@ export default function ClientNav() {
 
     <header className='shadow  ' style={{backgroundColor:"rgb(79 71 135)"}}> 
     <div className='align-items-center d-flex '>
-      <Link className='ms-5 my-4' to="/"><img src="../logo1.png" alt="SignMaster Logo" width="150px"/></Link>
+      <Link className='ms-5 my-2' to="/"><img src="../logo1.png" alt="SignMaster Logo" width="150px"/></Link>
       
       <ul className="nav  col-5 justify-content-around mx-auto" >
               <li className="nav-item d-flex justify-content-between" >

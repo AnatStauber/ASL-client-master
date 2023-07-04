@@ -4,11 +4,14 @@ import BackToMenu from '../client_comps/backToMenu';
 export default function Learn(props) {
   const [selectedLetter, setSelectedLetter] = useState('A');
   const [size, setSize] = useState('600px');
-  
+  const [showBackButton, setShowBackButton] = useState(true);
 
   useEffect(() => {
     if (props.size){
       setSize(props.size);
+    }
+    if (props.showBackButton){
+      setShowBackButton(false);
     }
     console.log(size)
   }, []);
@@ -27,7 +30,11 @@ export default function Learn(props) {
 
   return (
     <div>
+    {showBackButton && (
       <BackToMenu />
+    )}
+    
+      
     
     <div className="container-fluid text-center mt-1" >
       <div className="row justify-content-center">

@@ -43,12 +43,12 @@ const Practice = () => {
       <div>
         <BackToMenu />
       
-        <div className='d-flex mt-5 justify-content-around'>
+        <div className='d-flex justify-content-around'>
           
        <div className=''>
-        <h2 className='text-center mb-3' style={{color:"#FACC15"}}> Choose a letter : </h2>
+        <h2 className='text-center ' style={{color:"#FACC15"}}> Choose a letter : </h2>
         <div >
-          <Learn onChooseLetter={handleChosenLetter} size={"400px"}/>  
+          <Learn onChooseLetter={handleChosenLetter} size={"400px"} showBackButton={"false"}/>  
         </div>
        
         </div>   
