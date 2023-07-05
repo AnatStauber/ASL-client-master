@@ -79,7 +79,7 @@ export default function ClientNav() {
 
         <div className="user-picture" style={{ minWidth: "150px" }}>
           {isLoggedIn ? (
-            <div>
+            <div style={{textAlign:"center"}}>
               <img src={localStorage.getItem('profilePic')} alt="user" width={"50px"} style={{marginTop:"5px"}}></img>
               <p style={{ color: "#FACC15" }}> Welcome, <span onClick={handleMenuClick} style={{ cursor: "pointer", fontWeight: "bold" }}>{firstName} </span>! </p>
               {isMenuOpen && <MenuBox onLogout={handleLogout} onProfile={handleProfile} />}
