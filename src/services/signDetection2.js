@@ -19,7 +19,7 @@ const SignDetection = (props)  => {
     console.log(size)
   }, []);
 
-  const url = "http://localhost:5000"
+  const url = "http://anatstauber.pythonanywhere.com/"
   useEffect(() => {
     const captureVideo = async () => {
       const constraints = { video: true };
